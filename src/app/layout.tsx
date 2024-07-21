@@ -1,6 +1,13 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../styles/globals.css";
+import { CssBaseline } from '@mui/material';
+import Head from 'next/head';
+import type { ReactNode } from 'react';
+
+interface Metadata {
+  title: string;
+  description: string;
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,12 +18,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+      </Head>
+      <body className={inter.className}>
+        <CssBaseline />
+        {children}
+      </body>
     </html>
   );
 }
